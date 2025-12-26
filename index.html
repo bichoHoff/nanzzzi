@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Página A - Acertijo</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      text-align: center;
+      margin: 0;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    p#mensaje {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+    button#reset {
+      margin-top: 30px;
+      background: red;
+      color: white;
+      display: none; /* por defecto oculto */
+    }
+  </style>
+</head>
+<body>
+    <div id="paginaA">
+  <h1>Hay lugares que no necesitan visitarse para activarse.<br>Basta con recordarlos.</h1>
+  
+  <input type="text" id="respuesta" placeholder="Escribe tu respuesta aquí">
+  <button onclick="verificarRespuesta()">Enviar</button>
+  
+  <p id="mensaje"></p>
+
+  <button id="reset" onclick="reiniciarPrueba()">Reiniciar prueba</button>
+
+  <script>
+     const params = new URLSearchParams(window.location.search);
+
+  if (params.get('reset') === 'true') {
+    localStorage.removeItem('acertijoResuelto');
+  }
+    // Función para leer parámetros de URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Mostrar botón de reinicio solo si ?reset=true está en la URL
+    if (getQueryParam('reset') === 'true') {
+      document.getElementById('reset').style.display = 'block';
+    }
+
+    // Revisar si ya resolvió antes
+    if (localStorage.getItem('acertijoResuelto') === 'true') {
+      // Redirige automáticamente a B
+      window.location.href = 'paginaB.html';
+    }
+
+    function verificarRespuesta() {
+      const respuesta = document.getElementById('respuesta').value.trim().toLowerCase();
+      if (respuesta === 'metro zapata') {
+        document.getElementById('mensaje').textContent = "La siguiente parte no se camina, vuelve cuando quieras";
+        localStorage.setItem('acertijoResuelto', 'true');
+
+      } else {
+        document.getElementById('mensaje').textContent = "Intenta de nuevo";
+      }
+    }
+
+    function reiniciarPrueba() {
+      localStorage.removeItem('acertijoResuelto');
+      location.reload();
+    }
+  </script>
+  </div>
+</body>
+<div id="paginaB" style="display:none;">
+  body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      text-align: center;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>¡Gracias por volver, Nan!</h1>
+
+
+<audio controls>
+  <source src="Respuesta1.ogg" type="audio/ogg">
+</audio>
+</div>
+</body>
+</html>
