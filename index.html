@@ -78,13 +78,9 @@
   function verificarRespuesta() {
     const respuesta = document.getElementById('respuesta').value.trim().toLowerCase();
 
-   if (respuesta === 'metro zapata') {
-  document.getElementById('mensaje').textContent =
-    "La siguiente parte no se camina, vuelve cuando quieras";
-
-  localStorage.setItem('acertijoResuelto', 'true');
-}
-
+    if (respuesta === 'metro zapata') {
+      localStorage.setItem('acertijoResuelto', 'true');
+      mostrarPaginaB();
     } else {
       document.getElementById('mensaje').textContent = 'Intenta de nuevo';
     }
@@ -103,6 +99,3 @@
 
 </body>
 </html>
-
-
-
